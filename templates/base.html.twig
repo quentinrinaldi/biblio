@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link href={{ asset("assets/css/bootstrap.min.css") }} rel="stylesheet">
+        <link href={{ asset("assets/css/base.css") }} rel="stylesheet">
+        {% block stylesheets %}{% endblock %}
+
+    </head>
+    <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg bg-custom-nav sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Biblio</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item {% if app.request.get('_route') == 'homepage' %} active {% endif %}">
+                        <a class="nav-link" href="{{ path('homepage') }}">Accueil</a>
+                    </li>
+                    <li class="nav-item {% if app.request.get('_route') == 'browsering_books' %} active {% endif %}">
+                        <a class="nav-link" href="{{ path('about') }}">Parcourir les livres</a>
+                    </li>
+                    <li class="nav-item {% if app.request.get('_route') == 'about' %} active {% endif %}">
+                        <a class="nav-link" href="{{ path('about') }}">A propos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+        {% block body %}{% endblock %}
+    </div>
+
+    </body>
+    {% block javascripts %}
+        <script src={{ asset("assets/js/jquery.min.js") }}></script>
+        <script src={{ asset("assets/js/bootstrap.min.js") }}></script>{% endblock %}
+</html>
