@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome!</title>
+    <link href={{ asset("assets/css/bootstrap.min.css") }} rel="stylesheet">
+    <link href={{ asset("assets/css/base.css") }} rel="stylesheet">
+    <link href={{ asset("assets/css/register.css") }} rel="stylesheet">
+
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row no-gutter">
+        <div class="col-md-8 col-lg-6">
+            <div class="login d-flex align-items-center py-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-9 col-lg-8 mx-auto">
+                            {% if success == false %}
+                                    <div class="alert alert-danger" role="alert">{{ errorMessage }}</div>
+                            {% else %}
+                            <div class="alert alert-success" role="alert">
+                                Votre adresse email a bien été confirmé.
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
+    </div>
+</div>
+</body>

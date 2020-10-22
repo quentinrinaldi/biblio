@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome!</title>
+    <link href={{ asset("assets/css/bootstrap.min.css") }} rel="stylesheet">
+    <link href={{ asset("assets/css/base.css") }} rel="stylesheet">
+    <link href={{ asset("assets/css/register.css") }} rel="stylesheet">
+
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row no-gutter">
+        <div class="col-md-8 col-lg-6">
+            <div class="login d-flex align-items-center py-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-9 col-lg-8 mx-auto">
+                            <h3 class="login-heading mb-4 text-center">Welcome !</h3>
+                            <hr class="my-4">
+
+                            {{ form_start(form,{'attr': {'class': "form-signin"}}) }}
+{#                            <form class="form-signin" method="post">#}
+
+                            {% if not form.vars.valid %}
+                                <div class="alert alert-danger" role="alert">
+                                <ul>
+                                    {# Loop through every form item #}
+                                    {% for child in form.children %}
+                                        {# Display the errors of the form item #}
+                                        {%for error in child.vars.errors%}
+                                            <li>{{error.message}}</li>
+                                        {%endfor%}
+                                    {%endfor%}
+                                </ul>
+                                </div>
+                            {%endif%}
+
+                                {{ form_errors(form) }}
+
+                                <div class="form-row form-group">
+                                    <div class="col-4">
+{#                                        <input type="text" id="registration_form_username" class="form-control" placeholder="Username" required autofocus>#}
+                                        {{ form_widget(form.username, {'attr': {'class': 'form-control', 'placeholder': 'Username'}}) }}
+                                    </div>
+                                    <div class="col-4">
+{#                                        <input type="text" id="registration_form_firstName" class="form-control" placeholder="First Name" required autofocus>#}
+                                        {{ form_widget(form.firstName, {'attr': {'class': 'form-control', 'placeholder': 'First Name'}}) }}
+                                    </div>
+                                    <div class="col-4">
+{#                                        <input type="text" id="registration_form_lastName" class="form-control" placeholder="Last Name" required autofocus>#}
+                                        {{ form_widget(form.lastName, {'attr': {'class': 'form-control', 'placeholder': 'Last Name'}}) }}
+                                    </div>
+                                </div>
+
+                                <div class="form-row form-group">
+                                    {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'Email Address'}}) }}
+
+                                </div>
+
+                                <hr class="my-4">
+
+                                <div class="form-row form-group">
+                                    <div class="col-6">
+                                        {{ form_widget(form.plainPassword.first, {'attr': {'class': 'form-control', 'placeholder': 'Password'}}) }}
+                                    </div>
+                                    <div class="col-6">
+                                        {{ form_widget(form.plainPassword.second, {'attr': {'class': 'form-control', 'placeholder': 'Confirm your password'}}) }}
+                                    </div>
+                                </div>
+                                <hr class="my-4">
+                                <div class="form-row form-group">
+                                    <div class="col-8">
+                                        {{ form_widget(form.address, {'attr': {'class': 'form-control', 'placeholder': 'Address'}}) }}
+
+                                    </div>
+                                    <div class="col-4">
+                                        {{ form_widget(form.phoneNumber, {'attr': {'class': 'form-control', 'placeholder': 'Phone Number'}}) }}
+                                    </div>
+                                </div>
+
+                            {{ form_rest(form) }}
+
+                                <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Register</button>
+                                <hr class="my-4">
+                                <a class="d-block text-center mt-2 small" href="#">Sign In</a>
+
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
+    </div>
+</div>
+</body>
