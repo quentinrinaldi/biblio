@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Artist
 {
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -23,7 +24,7 @@ class Artist
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private $lastName;
 
     /**
      * @ORM\OneToMany(targetEntity=ArtistInvolvement::class, mappedBy="artist")
@@ -61,14 +62,14 @@ class Artist
     }
 
 
-    public function getName(): ?string
+    public function getLastName(): ?string
     {
-        return $this->name;
+        return $this->lastName;
     }
 
-    public function setName(string $name): self
+    public function setLastName(string $lastName): self
     {
-        $this->name = $name;
+        $this->lastName = $lastName;
 
         return $this;
     }
@@ -150,5 +151,10 @@ class Artist
         $this->deathDate = $deathDate;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return "{$this->getFirstName()} {$this->getLastName()}";
     }
 }

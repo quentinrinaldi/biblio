@@ -1,0 +1,21 @@
+{% if booksSelection is not empty %}
+    <h2>{{ selectionName }}</h2>
+    <hr>
+    <div class="row">
+    {% for book in booksSelection %}
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card h-100 text-center">
+                <a href="#"><img class="card-img-top" src="{{ book.thumbnailUrl }}" alt=""></a>
+                <div class="card-body">
+                    <h6 class="card-title">
+                        <a href="#">{{ book.title }}</a>
+                    </h6>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted"> {% for i in 0..book.stars-1 %}&#9733; {% endfor %}</small>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+{% endif %}

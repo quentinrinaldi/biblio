@@ -8,15 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=DvdRepository::class)
  */
-class Dvd
+class Dvd extends Document
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
-
     /**
      * @ORM\Column(type="time", nullable=true)
      */
@@ -26,11 +19,6 @@ class Dvd
      * @ORM\Column(type="boolean")
      */
     private $hasBonus;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getDuration(): ?\DateTimeInterface
     {

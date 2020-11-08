@@ -2,13 +2,14 @@
 
 namespace App\Repository;
 
+use App\Entity\Artist;
 use App\Entity\ArtistInvolvement;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method ArtistInvolvement|null find($id, $lockMode = null, $lockVersion = null)
- * @method ArtistInvolvement|null findOneBy(array $criteria, array $orderBy = null)
+ * @method null|ArtistInvolvement find($id, $lockMode = null, $lockVersion = null)
+ * @method null|ArtistInvolvement findOneBy(array $criteria, array $orderBy = null)
  * @method ArtistInvolvement[]    findAll()
  * @method ArtistInvolvement[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
@@ -17,6 +18,18 @@ class ArtistInvolvementRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, ArtistInvolvement::class);
+    }
+
+    public function findDisctinctRolesByArtist(Artist $artist)
+    {
+        return $this->createQueryBuilder('a')
+            ->select('a.type')
+            ->where('a.artist = :artistID')
+            ->groupBy('a.type')
+            ->setParameter('artistID', $artist->getId())
+            ->getQuery()
+            ->getResult()
+            ;
     }
 
     // /**

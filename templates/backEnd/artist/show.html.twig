@@ -1,0 +1,42 @@
+{% extends 'admin_base.html.twig' %}
+
+{% block title %}Artist{% endblock %}
+
+{% block body %}
+    <h1>Artist</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ artist.id }}</td>
+            </tr>
+            <tr>
+                <th>LastName</th>
+                <td>{{ artist.lastName }}</td>
+            </tr>
+            <tr>
+                <th>FirstName</th>
+                <td>{{ artist.firstName }}</td>
+            </tr>
+            <tr>
+                <th>Presentation</th>
+                <td>{{ artist.presentation }}</td>
+            </tr>
+            <tr>
+                <th>BirthDate</th>
+                <td>{{ artist.birthDate ? artist.birthDate|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>DeathDate</th>
+                <td>{{ artist.deathDate ? artist.deathDate|date('Y-m-d') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_artist_index') }}">back to list</a>
+
+    <a href="{{ path('admin_artist_edit', {'id': artist.id}) }}">edit</a>
+
+    {{ include('backEnd/artist/_delete_form.html.twig') }}
+{% endblock %}

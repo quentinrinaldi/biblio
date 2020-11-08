@@ -1,0 +1,26 @@
+{% extends 'frontEnd/biblio/base.html.twig' %}
+
+{% block body %}
+<div class="container">
+    <div>
+        <h1>Authors list</h1>
+    </div>
+    <hr>
+    <div class="row">
+    {% for letter,artistArray in artists %}
+        <div class="col-4">
+            <h2>{{ letter }}</h2>
+            {% for artist in artistArray %}
+            <div>
+                <ul>
+                    <li>
+                        <a href="{{ path('biblio_artist_show', {'id': artist.id }) }}">{{ artist.firstName }} {{ artist.lastName }}</a>
+                    </li>
+                </ul>
+            </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+    </div>
+</div>
+{% endblock %}

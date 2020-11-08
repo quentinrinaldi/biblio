@@ -7,10 +7,11 @@ use App\Repository\DocumentRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Exception;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass=DocumentRepository::class)
+ * @ORM\Entity(repositoryClass="App\Repository\DocumentRepository", repositoryClass=DocumentRepository::class)
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="document_type", type="string")
  * @ORM\DiscriminatorMap({"document" = "Document", "book" = "Book", "dvd" = "Dvd"})
@@ -20,6 +21,7 @@ class Document
 
     /**
      * @ORM\Id
+     * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
     protected $id;
@@ -71,7 +73,17 @@ class Document
     protected $availableSince;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Category::class, mappedBy="documents")
+     * @ORM\Column(type="boolean")
+     */
+    private $isPinned = false;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $availability = false;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="documents")
      */
     private $categories;
 
@@ -81,6 +93,11 @@ class Document
         $this->artistInvolvements = new ArrayCollection();
         $this->availableSince = new \DateTime('now');
         $this->categories = new ArrayCollection();
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
     }
 
     public function getTitle(): ?string
@@ -231,6 +248,50 @@ class Document
         return $this;
     }
 
+
+
+    public function getIsPinned(): ?bool
+    {
+        return $this->isPinned;
+    }
+
+    public function setIsPinned(bool $isPinned): self
+    {
+        $this->isPinned = $isPinned;
+
+        return $this;
+    }
+
+    public function getAvailability(): ?bool
+    {
+        return $this->availability;
+    }
+
+    public function setAvailability(bool $availability): self
+    {
+        $this->availability = $availability;
+
+        return $this;
+    }
+
+    public function getAvailableCopy() :Copy
+    {
+        foreach ($this->getCopies() as $copy) {
+            if ($copy->getStatus() === 'AVAILABLE')
+                return $copy;
+        }
+        throw new Exception('Available copy not found');
+    }
+
+    public function checkAvailability()
+    {
+        foreach ($this->getCopies() as $copy) {
+            if ($copy->getStatus() === 'AVAILABLE')
+                return;
+        }
+        $this->setAvailability(false);
+    }
+
     /**
      * @return Collection|Category[]
      */
@@ -243,7 +304,6 @@ class Document
     {
         if (!$this->categories->contains($category)) {
             $this->categories[] = $category;
-            $category->addDocument($this);
         }
 
         return $this;
@@ -251,10 +311,7 @@ class Document
 
     public function removeCategory(Category $category): self
     {
-        if ($this->categories->contains($category)) {
-            $this->categories->removeElement($category);
-            $category->removeDocument($this);
-        }
+        $this->categories->removeElement($category);
 
         return $this;
     }

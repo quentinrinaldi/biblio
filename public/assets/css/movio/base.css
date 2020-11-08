@@ -1,0 +1,7 @@
+.bg-custom-nav {
+    background-color: #45cea8;
+}
+
+nav .btn-outline-light:hover {
+    color: #45cea8 !important;
+}

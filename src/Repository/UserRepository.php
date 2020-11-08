@@ -22,6 +22,52 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         parent::__construct($registry, User::class);
     }
 
+    public function getPreferedCategory ($user)
+    {
+        return $this->createQueryBuilder('u')
+            ->select('count(u.id) as count')
+            ->addSelect('cat.name', 'name')
+            ->addSelect('cat.id', 'catId')
+            ->join('u.currentBorrowings', 'b')
+            ->join('b.copy', 'c')
+            ->join('c.document', 'd')
+            ->join('d.categories', 'cat')
+            ->where('u.id = :id')
+            ->groupBy('cat.name')
+            ->orderBy('count','DESC')
+            ->setParameter('id', $user->getId())
+            ->setFirstResult(0)
+            ->setMaxResults(1);
+    }
+
+    public function getDelayedCount(User $user, $nbLastMonths) :int
+    {
+        return $this->createQueryBuilder('u')
+            ->select('count(b.id)')
+            ->join('u.currentBorrowings', 'b')
+            ->where('u.id = :id')
+            ->andWhere("b.status = 'RETURNED_LATE'")
+            ->andWhere("b.expectedReturnDate >= DATE_ADD(CURRENT_DATE(), :nbMonths, 'month') ")
+            ->setParameter('id', $user->getId())
+            ->setParameter('nbMonths', '-'.$nbLastMonths)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function getFinesCount($user, $nbLastMonths) :int
+    {
+        return $this->createQueryBuilder('u')
+            ->select('count(p.id)')
+            ->join('u.penalties', 'p')
+            ->where('u.id = :id')
+            ->andWhere("p.type = 'FINE'")
+            ->andWhere("p.endDate >= DATE_ADD(CURRENT_DATE(), :nbMonths, 'month') ")
+            ->setParameter('id', $user->getId())
+            ->setParameter('nbMonths', '-'.$nbLastMonths)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
      */

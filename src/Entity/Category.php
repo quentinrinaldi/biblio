@@ -25,14 +25,14 @@ class Category
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Document::class, inversedBy="categories")
-     */
-    private $documents;
-
-    /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $description;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Document::class, mappedBy="categories")
+     */
+    private $documents;
 
     public function __construct()
     {
@@ -56,6 +56,24 @@ class Category
         return $this;
     }
 
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
+    }
+
     /**
      * @return Collection|Document[]
      */
@@ -68,6 +86,7 @@ class Category
     {
         if (!$this->documents->contains($document)) {
             $this->documents[] = $document;
+            $document->addCategory($this);
         }
 
         return $this;
@@ -75,21 +94,9 @@ class Category
 
     public function removeDocument(Document $document): self
     {
-        if ($this->documents->contains($document)) {
-            $this->documents->removeElement($document);
+        if ($this->documents->removeElement($document)) {
+            $document->removeCategory($this);
         }
-
-        return $this;
-    }
-
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(?string $description): self
-    {
-        $this->description = $description;
 
         return $this;
     }

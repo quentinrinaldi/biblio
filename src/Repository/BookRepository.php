@@ -2,33 +2,20 @@
 
 namespace App\Repository;
 
-use App\Entity\Document;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Persistence\ManagerRegistry;
-use App\Entity\Author;
 use App\Entity\Book;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Book|null find($id, $lockMode = null, $lockVersion = null)
- * @method Book|null findOneBy(array $criteria, array $orderBy = null)
+ * @method null|Book find($id, $lockMode = null, $lockVersion = null)
+ * @method null|Book findOneBy(array $criteria, array $orderBy = null)
  * @method Book[]    findAll()
  * @method Book[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class BookRepository extends ServiceEntityRepository
+class BookRepository extends DocumentRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Book::class);
-    }
-
-    public function findByAuthor(Author $author)
-    {
-        return $qb = $this->createQueryBuilder("b")
-            ->where(':author MEMBER OF b.authors')
-            ->setParameters(array('author' => $author->getId()))
-            ->getQuery()
-            ->getResult();
-
     }
 
     // /**

@@ -1,0 +1,159 @@
+{%  extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link href="{{ asset("assets/css/book-show.css") }}" rel="stylesheet">
+{% endblock %}
+{% block body %}
+<!-- Page Content -->
+<div class="container">
+
+    <div class="row">
+
+        {{ render(controller(
+            'App\\Controller\\CategoryController::categories_toolbar',
+            { 'activeCategories': activeCategories }
+        )) }}
+        <!-- /.col-lg-3 -->
+
+        <div class="col-lg-9">
+            <a href="{{ path('biblio_book_index') }}"><-- Back to the list</a>
+
+            <div class="card mt-4">
+                <img class="card-img-top img-fluid img-book" src="{{ book.thumbnailUrl }}" alt="">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-8">
+                            <h3 class="card-title">{{ book.title }}</h3>
+                        </div>
+
+                        <div class="col-4">
+                            <a href="{{path('biblio_book_borrow', {'id': book.id})}}"
+                               class="btn btn-primary btn-lg {% if (remainingCopies == 0 or alreadyBorrowed) %}disabled{% endif %}">
+                                {% if alreadyBorrowed %}Borrowed {% else %}Borrow{% endif %}</a>
+                        </div>
+                    </div>
+
+                    <h4>By: {{ book.artistInvolvements|map(inv=>"<a href="~path('biblio_artist_show', {'id': inv.artist.id})~">"~inv~"</a>")|join(', ')|raw }}
+                  {#      {% for inv in book.artistInvolvements %}
+                        {{ inv.artist.firstName }} {{ inv.artist.lastName }} ({{ inv.type }}), {% endfor %}#}
+                    </h4>
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque facere, soluta. Totam id dolores, sint aperiam sequi pariatur praesentium animi perspiciatis molestias iure, ducimus!</p>
+                    <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
+                    4.0 stars
+                </div>
+            </div>
+            <!-- /.card -->
+            <div class="card card-outline-secondary my-4">
+                <div class="card-header">
+                    Information
+                </div>
+                <div class="card-body">
+                    <table class="table-striped">
+                        <tr>
+                            <td>
+                                Publisher:
+                            </td>
+                            <td>
+                                {{ book.publisher }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Pages count:
+                            </td>
+                            <td>
+                                {{ book.pagesCount }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Published Date:
+                            </td>
+                            <td>
+                                {{ book.publishedDate|date("m/d/Y") }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                ISBN:
+                            </td>
+                            <td>
+                                {{ book.isbn }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Remaining copies:
+                            </td>
+                            <td>
+                                {{ remainingCopies }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Categories:
+                            </td>
+                            <td>
+                                {{ book.categories|join(', ') }}
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+
+            <div class="card card-outline-secondary my-4">
+                <div class="card-header">
+                    Product Reviews
+                </div>
+                <div class="card-body">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
+                    <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+                    <hr>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
+                    <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+                    <hr>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
+                    <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+                    <hr>
+                    <a href="#" class="btn btn-success">Leave a Review</a>
+                </div>
+            </div>
+            <!-- /.card -->
+
+            <div class="card card-outline-secondary my-4">
+                <div class="card-header">
+                    Some Books which have some categories in common
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        {{ render(controller(
+                            'App\\Controller\\CategoryController::getBooksSamplesByCategories',
+                            { 'book': book }
+                        )) }}
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="card card-outline-secondary my-4">
+                <div class="card-header">
+                    Written by the same author
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        {{ render(controller(
+                            'App\\Controller\\ArtistController::getBooksSamplesByArtist',
+                            { 'book': book }
+                        )) }}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.col-lg-9 -->
+
+    </div>
+
+</div>
+<!-- /.container -->
+{% endblock %}

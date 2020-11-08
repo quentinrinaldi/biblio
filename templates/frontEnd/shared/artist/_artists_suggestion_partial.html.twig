@@ -1,0 +1,6 @@
+<div class="list-group text-center bg-light">
+    <h3>Similar Authors</h3>
+    {% for artist in artists %}
+        <a class="" href="{{path('biblio_artist_show', {'id': artist.id}) }}">{{ artist.firstName }} {{artist.lastName}} </a>
+    {% endfor %}
+</div>

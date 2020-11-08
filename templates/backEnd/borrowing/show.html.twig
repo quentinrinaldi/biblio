@@ -1,0 +1,50 @@
+{% extends 'admin_base.html.twig' %}
+
+{% block title %}Borrowing{% endblock %}
+
+{% block body %}
+    <h1>Borrowing</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ borrowing.id }}</td>
+            </tr>
+            <tr>
+                <th>User</th>
+                <td><td><a href="{{ path('admin_user_show', {'id': borrowing.user.id}) }}">{{borrowing.user.id }}</a></td></td>
+            </tr>
+            <tr>
+                <th>Document</th>
+                <td>{{ borrowing.id }}</td>
+            </tr>
+            <tr>
+                <th>Copy</th>
+                <td><a href="{{ path('admin_copy_show', {'id': borrowing.copy.id}) }}">{{ borrowing.copy.id }}</a></td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ borrowing.createdAt ? borrowing.createdAt|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>ExpectedReturnDate</th>
+                <td>{{ borrowing.expectedReturnDate ? borrowing.expectedReturnDate|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>ReturnedAt</th>
+                <td>{{ borrowing.returnedAt ? borrowing.returnedAt|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ borrowing.status }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_borrowing_index') }}">back to list</a>
+
+    <a href="{{ path('admin_borrowing_edit', {'id': borrowing.id}) }}">edit</a>
+
+    {{ include('backEnd/borrowing/_delete_form.html.twig') }}
+{% endblock %}

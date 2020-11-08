@@ -1,0 +1,58 @@
+{% if documentsSelection is not empty %}
+    <h2>{{ selectionName }}</h2>
+    <hr>
+    <div id="carousel-{{selectionName|u.camel.title}}" class="carousel slide my-4" data-ride="carousel">
+        {% if documentsSelection|length <= 4 %}
+            <div class="row">   
+                {% for document in documentsSelection %}
+                    <div class="col-lg-3">
+                        <div class="card h-100 text-center">
+                            <a href="#"><img class="card-img-top" src="{{ document.thumbnailUrl }}" alt=""></a>
+                            <div class="card-body">
+                                <h6 class="card-title">
+                                    <a href="{{ document|generateDocumentUrl }}">{{ document.title }}</a>
+                                </h6>
+                            </div>
+                            <div class="card-footer">
+                                <small class="text-muted"> {% for i in 0..document.stars-1 %}&#9733; {% endfor %}</small>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+        <div class="carousel-inner" role="listbox">
+            {% for i in range(low=0, high=documentsSelection|length -1, step=4) %}
+
+                <div class="carousel-item {% if i==0 %}active{% endif %}">
+                    <div class="row">   
+                        {% for document in suggestion(documentsSelection,4,i) %}
+                            <div class="col-lg-3">
+                                <div class="card h-100 text-center">
+                                    <a href="#"><img class="card-img-top" src="{{ document.thumbnailUrl }}" alt=""></a>
+                                    <div class="card-body">
+                                        <span class="card-title">
+                                            <a href="{{ document|generateDocumentUrl }}">{{ document.title }}</a>
+                                        </span>
+                                    </div>
+                                    <div class="card-footer">
+                                        <small class="text-muted"> {% for i in 0..document.stars-1 %}&#9733; {% endfor %}</small>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <a class="carousel-control-prev" href="#carousel-{{selectionName|u.camel.title}}" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carousel-{{selectionName|u.camel.title}}" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div> 
+{% endif %}

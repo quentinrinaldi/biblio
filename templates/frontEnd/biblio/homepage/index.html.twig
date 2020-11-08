@@ -1,0 +1,66 @@
+{% extends 'frontEnd/biblio/base.html.twig' %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link href={{ asset("assets/css/biblio/homepage.css") }} rel="stylesheet">
+<link href={{ asset("assets/css/shared/homepage.css") }} rel="stylesheet">
+{% endblock %}
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+
+    <header class="masthead">
+        <div class="overlay"></div>
+        <div class="container nav-container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="page-heading">
+                        <h1>Biblio</h1>
+                        <span class="subheading">Des milliers de livres à porter de main.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+<div class="container">
+        
+            <div class="row">
+            {{ render(controller(
+                'App\\Controller\\CategoryController::categories_toolbar'
+            )) }}
+
+        <!-- /.col-lg-3 -->
+
+        <div class="col-lg-9">
+
+
+                {{ render(controller(
+                    'App\\Controller\\BiblioHomepageController::getPinnedBooksSelection',
+                )) }}
+
+                {{ render(controller(
+                    'App\\Controller\\BiblioHomepageController::getNewBooksSelection',
+                )) }}
+
+                {{ render(controller(
+                    'App\\Controller\\BiblioHomepageController::getMostPopularBooksSelection',
+                )) }}
+
+        </div>
+        <!-- /.col-lg-9 -->
+
+    </div>
+    <!-- /.row -->
+
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+$('#carousel-OurSelection').carousel({interval: false});
+$('#carousel-MostPopular').carousel({interval: false});
+
+$('#carousel-JustArrived').carousel({interval: false});
+
+</script>
+ {% endblock %}

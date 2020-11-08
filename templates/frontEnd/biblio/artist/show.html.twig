@@ -1,0 +1,86 @@
+{%  extends 'frontEnd/biblio/base.html.twig' %}
+{% block stylesheets %}
+    {{ parent()}}
+    <link href={{ asset("assets/css/book-show.css") }} rel="stylesheet">
+{% endblock %}
+{% block body %}
+    <!-- Page Content -->
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-lg-3">
+                {{ render(controller(
+                'App\\Controller\\ArtistController::getSimilarArtists',
+                { 'artist': artist }
+            )) }}
+            </div>
+            <!-- /.col-lg-3 -->
+
+            <div class="col-lg-9">
+
+                <div class="card mt-4 bg-light">
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-4">
+                                <img src="http://placehold.it/200x300" alt="" class="img-rounded img-responsive" />
+                            </div>
+                            <div class="col-8 ">
+                                <h3 class="card-title">{{ artist.firstName }} {{ artist.lastName }}</h3>
+                                Date de naissance: {{ artist.birthDate | date('d-m-Y') }} <br />
+                                Roles: {% for role in artistData['roles'] %}{{ role.type }}{% if loop.index != loop.last %}, {% endif %}{% endfor %}<br />
+                                Nombre de livres présents sur Biblio : {{ artistData.booksCount }}<br /><br />
+                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque facere, soluta. Totam id dolores, sint aperiam sequi pariatur praesentium animi perspiciatis molestias iure, ducimus!</p>
+
+
+                                {% set wpUrl = artist|wp %}
+                                {% if wpUrl != false %}
+                                    <a href="{{ wpUrl }}">Page Wikipedia</a>
+                                {% endif %}
+                                <a href="{{ path('biblio_artist_show_books', {'id': artist.id }) }}">Tous les livres</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card -->
+
+                <div class="card card-outline-secondary my-4">
+                    <div class="card-header">
+                        Authors' categories
+                    </div>
+                    <div class="card-body">
+                        {% for category in artistData['categories'] %}
+                            {{category['name'] }}{% if loop.index != loop.last %}, {% endif %}
+                        {% endfor %}
+                        <br />
+
+                    </div>
+                </div>
+                <!-- /.card -->
+
+                <div class="card card-outline-secondary my-4">
+                    <div class="card-header">
+                        Some authors' popular books
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                        {{ render(controller(
+                            'App\\Controller\\ArtistController::getPopularBooksSelectionByArtist',
+                            { 'artist': artist }
+                        )) }}
+                        </div>
+                        <br />
+                    </div>
+                </div>
+                <!-- /.card -->
+
+            </div>
+            <!-- /.col-lg-9 -->
+
+        </div>
+
+    </div>
+    <!-- /.container -->
+{% endblock %}

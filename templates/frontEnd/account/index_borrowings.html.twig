@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-3">
+                <h1 class="my-4">My account</h1>
+                <div class="list-group">
+                    <a href="{{ path('account_edit') }}" class="list-group-item">Profile</a>
+                    <a href="{{ path('account_borrowing') }}" class="list-group-item active">My borrowings</a>
+                    <a href="#" class="list-group-item">My penalties</a>
+                </div>
+            </div>
+
+            <!-- /.col-lg-3 -->
+
+            <div class="col-lg-8 offset-lg-1 text-center center">
+                <h2>Your borrowings</h2>
+                <hr>
+               <table class="table-striped">
+                   <thead>
+                   <tr>
+                       <th>Title</th>
+                       <th>Condition</th>
+                       <th>Borrowing date</th>
+                       <th>Expected return date</th>
+                       <th>Returned At</th>
+                       <th>Status</th>
+                       <th>Action</th>
+                   </tr>
+                   </thead>
+                   <tbody>
+                   {% for borrowing in borrowings %}
+                       <tr>
+                           <td><a href="{{ path('book_show', {'id': borrowing.copy.document.id}) }}"> {{ borrowing.copy.document.title }}</a></td>
+                           <td>{{ borrowing.copy.physicalState }}</td>
+                           <td>{{ borrowing.createdAt|date('d-m-Y') }}</td>
+                           <td>{{ borrowing.expectedReturnDate|date('d-m-Y') }}</td>
+                           <td>{{ borrowing.returnedAt ? borrowing.returnedAt|date('Y-m-d') : '' }}</td>
+                           <td>{{ borrowing.status }}</td>
+                           <td>{%  if not borrowing.returnedAt %} <a href="{{ path('book_return', {'id' : borrowing.id}) }}">Return</a> {% endif %}</td>
+                       </tr>
+                   {% else %}
+                       <tr>
+                           <td colspan="6">no records found</td>
+                       </tr>
+                   {% endfor %}
+                   </tbody>
+               </table>
+
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

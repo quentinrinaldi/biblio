@@ -1,0 +1,38 @@
+{% extends 'frontEnd/biblio/base.html.twig' %}
+
+{% block stylesheets %}
+    <link href="{{ asset("assets/css/homepage.css") }}" rel="stylesheet">
+    {{ parent() }}
+{% endblock %}
+{% block title %}Home{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            {% if activeCategories is not defined %}
+            {% set activeCategories = [] %}
+            {% endif %}
+            {{ render(controller(
+                'App\\Controller\\CategoryController::categories_toolbar',
+                { 'activeCategories': activeCategories }
+            )) }}
+            <!-- /.col-lg-3 -->
+
+            <div class="col-lg-9">
+
+                <h2>{{ title }}</h2>
+                <hr>
+                <div class="row">
+                    {% include 'frontEnd/shared/document/_documents_items_partial.html.twig' with {'documents': documents } %}
+                </div>
+                <!-- /.row -->
+
+            </div>
+            <!-- /.col-lg-9 -->
+
+        </div>
+        <!-- /.row -->
+
+    </div>
+{% endblock %}

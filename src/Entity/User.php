@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class User implements UserInterface
 {
 
-    const STATUS = ['AWAITING_FINE_PAYMENT', 'EXPIRED_SUBSCRIPTION', 'IN_ORDER' ];
+    const STATUS = ['AWAITING_FINE_PAYMENT', 'EXPIRED_SUBSCRIPTION', 'IN_ORDER', 'EXCLUSION_IN_PROGRESS' ];
 
     /**
      * @ORM\Id
@@ -62,7 +62,7 @@ class User implements UserInterface
     private $lastName;
 
     /**
-     * @ORM\Column(type="string", length=12)
+     * @ORM\Column(type="string", length=14)
      */
     private $phoneNumber;
 
@@ -100,7 +100,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="boolean")
      */
-    private $isVerified = false;
+    private $isVerified = true;
 
     public function __construct()
     {
@@ -111,6 +111,7 @@ class User implements UserInterface
         $this->subscriptionExpirationDate = $today->add(new \DateInterval("P1Y"));
 
     }
+
 
     public function getId(): ?int
     {

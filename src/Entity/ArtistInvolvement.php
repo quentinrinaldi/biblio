@@ -4,12 +4,18 @@ namespace App\Entity;
 
 use App\Repository\ArtistInvolvementRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ArtistInvolvementRepository::class)
  */
 class ArtistInvolvement
 {
+    public const TYPE_AUTHOR = 'author';
+    public const TYPE_TRANSLATOR = 'translator';
+    public const TYPE_PREFACE = 'preface';
+    public const TYPE_ARRAY = [self::TYPE_AUTHOR, self::TYPE_TRANSLATOR, self::TYPE_PREFACE];
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -19,6 +25,7 @@ class ArtistInvolvement
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Choice(choices="self::TYPE_ARRAY", message="Choose a valid role")
      */
     private $type;
 
@@ -33,6 +40,11 @@ class ArtistInvolvement
      * @ORM\JoinColumn(nullable=false)
      */
     private $document;
+
+    public function __toString()
+    {
+        return "{$this->getArtist()->__toString()} ({$this->getType()})";
+    }
 
     public function getId(): ?int
     {

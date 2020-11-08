@@ -1,0 +1,68 @@
+{% extends 'admin_base.html.twig' %}
+
+{% block title %}Borrowing index{% endblock %}
+
+{% block body %}
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Books data</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>UserId</th>
+                        <th>DocumentId</th>
+                        <th>CopyId</th>
+                        <th>CreatedAt</th>
+                        <th>Exp.ReturnDate</th>
+                        <th>ReturnedAt</th>
+                        <th>Status</th>
+                        <th>actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for borrowing in borrowings %}
+                        <tr>
+                            <td>{{ borrowing.id }}</td>
+                            <td><a href="{{ path('admin_user_show', {'id' : borrowing.user.id}) }}">{{borrowing.user.id }}</a></td>
+
+                          <td><a href="{{ borrowing.copy.document | generateDocumentUrl }}">{{ borrowing.copy.document.id }}</a></td>
+                           <td><a href="{{ path('admin_copy_show', {'id': borrowing.copy.id}) }}">{{ borrowing.copy.id }}</a></td>
+                           <td>{{ borrowing.createdAt ? borrowing.createdAt|date('Y-m-d') : '' }}</td>
+                           <td>{{ borrowing.expectedReturnDate ? borrowing.expectedReturnDate|date('Y-m-d') : '' }}</td>
+                           <td>{{ borrowing.returnedAt ? borrowing.returnedAt|date('Y-m-d') : '' }}</td>
+                           <td>{{ borrowing.status }}</td>
+                           <td>
+                               <a href="{{ path('admin_borrowing_show', {'id': borrowing.id}) }}">show</a>
+                               <a href="{{ path('admin_borrowing_edit', {'id': borrowing.id}) }}">edit</a>
+                           </td>
+                       </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="6">no records found</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+                <a href="{{ path('admin_borrowing_new') }}">Create new</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').DataTable();
+        });
+    </script>
+{% endblock %}

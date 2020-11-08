@@ -1,0 +1,6 @@
+header.masthead {
+    background: url("../../img/book2.jpg") no-repeat center center;
+    background-attachment: scroll;
+    position: relative;
+    background-size: cover;
+}

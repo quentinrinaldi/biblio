@@ -1,0 +1,91 @@
+{% extends 'admin_base.html.twig' %}
+
+{% block title %}Book index{% endblock %}
+
+{% block body %}
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Books data</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Title</th>
+                            <th>PublishedDate</th>
+                            <th>ThumbnailUrl</th>
+                            <th>Description</th>
+                            <th>Stars</th>
+                            <th>Publisher</th>
+                            <th>AvailableSince</th>
+                            <th>IsPinned</th>
+                            <th>Availability</th>
+                            <th>Isbn</th>
+                            <th>PagesCount</th>
+                            <th>Categories</th>
+                            <th>actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for book in books %}
+                        <tr>
+                            <td>{{ book.id }}</td>
+                            <td>{{ book.title }}</td>
+                            <td>{{ book.publishedDate ? book.publishedDate|date('Y-m-d') : '' }}</td>
+                            <td>{{ book.thumbnailUrl }}</td>
+                            <td>{{ book.description }}</td>
+                            <td>{{ book.stars }}</td>
+                            <td>{{ book.publisher }}</td>
+                            <td>{{ book.availableSince ? book.availableSince|date('Y-m-d') : '' }}</td>
+                            <td>{{ book.isPinned ? 'Yes' : 'No' }}</td>
+                            <td>{{ book.availability ? 'Yes' : 'No' }}</td>
+                            <td>{{ book.isbn }}</td>
+                            <td>{{ book.pagesCount }}</td>
+                            <td>{% for index,category in book.categories %}
+                                {{ category.name }}{% if loop.index != loop.last %},{% endif %}
+                                {% endfor %}
+                            </td>
+                            <td>
+                                <a href="{{ path('admin_book_show', {'id': book.id}) }}">show</a>
+                                <a href="{{ path('admin_book_edit', {'id': book.id}) }}">edit</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="13">no records found</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <a href="{{ path('admin_book_new') }}">Create new</a>
+{% endblock %}
+
+{% block javascripts %}
+<script src="https://cdn.datatables.net/plug-ins/1.10.21/dataRender/ellipsis.js"></script>
+<script>
+    $(document).ready(function() {
+
+        $('#dataTable').DataTable({
+            columnDefs: [{
+                targets: 3,
+                render: $.fn.dataTable.render.ellipsis(10)
+            },
+                {
+                    targets: 4,
+                    render: $.fn.dataTable.render.ellipsis(10)
+                }]
+        });
+    });
+</script>
+{% endblock %}
+

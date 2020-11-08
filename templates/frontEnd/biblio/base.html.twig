@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset("assets/css/biblio/base.css") }}" rel="stylesheet" />
+{% endblock %}
+{% block navigation %}
+    <nav class="navbar navbar-expand-lg bg-custom-nav sticky-top">
+        <div class="container nav-container">
+            <a class="navbar-brand" href="#">Biblio</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item {% if app.request.get('_route') == 'homepage' %} active {% endif %}">
+                        <a class="nav-link" href="{{ path('biblio_homepage') }}">Home</a>
+                    </li>
+                    <li class="nav-item {% if app.request.get('_route') == 'browsering_books' %} active {% endif %}">
+                        <a class="nav-link" href="{{ path('biblio_book_index') }}">Books</a>
+                    </li>
+                    <li class="nav-item {% if app.request.get('_route') == 'artists' %} active {% endif %}">
+                        <a class="nav-link" href="{{ path('biblio_artist_index', {'roleName': 'author'}) }}">Authors</a>
+                    </li>
+                    <li class="nav-item {% if app.request.get('_route') == 'about' %} active {% endif %}">
+                        <a class="nav-link" href="{{ path('biblio_about') }}">About us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+        <div class="account-buttons">
+        {% if app.user %}
+
+            <a href="{{ path('account_edit') }}" class="btn btn-outline-light" role="button">Account</a>
+            <a href="{{ path('logout') }}" class="btn btn-outline-light" role="button">Log out</a>
+        {% else %}
+            <a href="{{ path('login') }}" class="btn btn-outline-light" id="login-button" role="button">Log In</a>
+        {% endif %}
+            </div>
+    </nav>
+{% endblock %}
+{% block body %}{% endblock %}
+{% block javascripts %}{% endblock %}

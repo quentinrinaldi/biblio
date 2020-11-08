@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link href="{{ asset("assets/css/homepage.css") }}" rel="stylesheet">
+{% endblock %}
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+
+    <header class="masthead">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="page-heading">
+                        <h1>Biblio</h1>
+                        <span class="subheading">Des milliers de livres à porter de main.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-3">
+
+                <h1 class="my-4">Catégories</h1>
+                <div class="list-group">
+                    <a href="#" class="list-group-item">Category 1</a>
+                    <a href="#" class="list-group-item">Category 2</a>
+                    <a href="#" class="list-group-item">Category 3</a>
+                </div>
+
+            </div>
+            <!-- /.col-lg-3 -->
+
+            <div class="col-lg-9">
+                <h2>Books written by {{ artist.firstName }} {{ artist.lastName }}</h2>
+                <hr>
+                <div class="row">
+                    {% for book in books %}
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <div class="card h-100">
+                                <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                                <div class="card-body">
+                                    <h4 class="card-title">
+                                        <a href="#">{{ book.title }}</a>
+                                    </h4>
+
+                                    {#<p class="card-text">{{ book.synopsis }}</p>#}
+                                </div>
+                                <div class="card-footer">
+                                    <small class="text-muted"> {% for i in 0..book.stars-1 %}&#9733; {% endfor %}</small>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                </div>
+                <!-- /.row -->
+
+            </div>
+            <!-- /.col-lg-9 -->
+
+        </div>
+        <!-- /.row -->
+
+    </div>
+{% endblock %}

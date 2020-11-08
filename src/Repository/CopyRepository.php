@@ -19,6 +19,18 @@ class CopyRepository extends ServiceEntityRepository
         parent::__construct($registry, Copy::class);
     }
 
+    public function findFirstAvailableCopy($book)
+    {
+        return $this->createQueryBuilder('c')
+            ->where('c.document = :documentID')
+            ->andWhere('c.status = :documentStatus')
+            ->setParameter('documentID', $book->getId())
+            ->setParameter('documentStatus', Copy::STATUS_AVAILABLE)
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getSingleResult();
+    }
+
     // /**
     //  * @return Copy[] Returns an array of Copy objects
     //  */

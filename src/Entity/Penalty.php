@@ -12,7 +12,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Penalty
 {
-    const TYPE = ['FINE', 'TEMPORARY_EXCLUSION' ];
+    const PENALTY_FINE = 'FINE';
+    const PENALTY_EXCLUSION = 'TEMPORARY_EXCLUSION';
+
+    const TYPE = [self::PENALTY_FINE, self::PENALTY_EXCLUSION ];
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -28,12 +31,12 @@ class Penalty
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Choice(choices=Penalty::TYPE, message="Choose a valid penalty type.")
      */
     private $type;
 
     /**
      * @ORM\Column(type="integer")
-     * @Assert\Choice(choices=Penalty::TYPE, message="Choose a valid penalty type.")
      */
     private $amount;
 
@@ -41,6 +44,11 @@ class Penalty
      * @ORM\Column(type="date", nullable=true)
      */
     private $endDate;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $paymentStatus = false;
 
     public function getId(): ?int
     {
@@ -92,6 +100,17 @@ class Penalty
     {
         $this->endDate = $endDate;
 
+        return $this;
+    }
+
+    public function getPaymentStatus(): ?bool
+    {
+        return $this->paymentStatus;
+    }
+
+    public function setPaymentStatus(bool $paymentStatus): self
+    {
+        $this->paymentStatus = $paymentStatus;
         return $this;
     }
 }

@@ -1,0 +1,30 @@
+{% extends 'admin_base.html.twig' %}
+
+{% block title %}Copy{% endblock %}
+
+{% block body %}
+    <h1>Copy</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ copy.id }}</td>
+            </tr>
+            <tr>
+                <th>PhysicalState</th>
+                <td>{{ copy.physicalState }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ copy.status }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_copy_index') }}">back to list</a>
+
+    <a href="{{ path('admin_copy_edit', {'id': copy.id}) }}">edit</a>
+
+    {{ include('backEnd/copy/_delete_form.html.twig') }}
+{% endblock %}

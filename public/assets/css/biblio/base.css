@@ -1,0 +1,14 @@
+.bg-custom-nav {
+    background-color: #45cea8;
+}
+
+nav .btn-outline-light:hover {
+    color: #45cea8 !important;
+}
+
+header.masthead {
+    background: url("../img/book2.jpg") no-repeat center center;
+    background-attachment: scroll;
+    position: relative;
+    background-size: cover;
+}

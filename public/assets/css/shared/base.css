@@ -1,0 +1,37 @@
+.bg-custom-nav a {
+    color: white;
+}
+
+.container:not(.nav-container) {
+    margin-top: 50px;
+}
+
+.account-buttons {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.account-buttons > a {
+    margin-right: 5px;
+}
+
+/*.card-disabled {
+    background-color: rgba(245, 245, 245, 1);
+    opacity: .4;
+}*/
+
+.card-title {
+    margin: auto auto;
+}
+
+.card-img-overlay {
+    background-color: #b7b6b6;
+    opacity: 0.8;
+    color: white;
+}
+
+.card-img-top {
+    max-height: 200px;
+    width: auto;
+    margin-top: 10px;
+}

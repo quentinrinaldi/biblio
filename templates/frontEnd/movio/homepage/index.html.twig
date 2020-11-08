@@ -1,0 +1,65 @@
+{% extends 'frontEnd/movio/base.html.twig' %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link href={{ asset("assets/css/movio/homepage.css") }} rel="stylesheet">
+<link href={{ asset("assets/css/shared/homepage.css") }} rel="stylesheet">{% endblock %}
+{% block title %}Movio Home{% endblock %}
+
+{% block body %}
+
+    <header class="masthead">
+        <div class="overlay"></div>
+        <div class="container nav-container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="page-heading">
+                        <h1>Movio</h1>
+                        <span class="subheading">Des milliers de dvd à porter de main.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+<div class="container">
+        
+            <div class="row">
+            {{ render(controller(
+                'App\\Controller\\CategoryController::categories_toolbar'
+            )) }}
+
+        <!-- /.col-lg-3 -->
+
+        <div class="col-lg-9">
+
+
+                {{ render(controller(
+                    'App\\Controller\\MovioHomepageController::getPinnedDvdsSelection',
+                )) }}
+
+                {{ render(controller(
+                    'App\\Controller\\MovioHomepageController::getNewDvdsSelection',
+                )) }}
+
+                {{ render(controller(
+                    'App\\Controller\\MovioHomepageController::getMostPopularDvdsSelection',
+                )) }}
+
+        </div>
+        <!-- /.col-lg-9 -->
+
+    </div>
+    <!-- /.row -->
+
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+$('#carousel-OurSelection').carousel({interval: false});
+$('#carousel-MostPopular').carousel({interval: false});
+
+$('#carousel-JustArrived').carousel({interval: false});
+
+</script>
+ {% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'admin_base.html.twig' %}
+
+{% block title %}New Copy{% endblock %}
+
+{% block body %}
+    <h1>Create new Copy</h1>
+
+    {{ include('backEnd/copy/_form.html.twig') }}
+
+    <a href="{{ path('admin_copy_index') }}">back to list</a>
+{% endblock %}

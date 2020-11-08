@@ -19,6 +19,18 @@ class BorrowingRepository extends ServiceEntityRepository
         parent::__construct($registry, Borrowing::class);
     }
 
+    public function getCurrentBorrowingCountByUser($user)
+    {
+        return $this->createQueryBuilder('b')
+            ->select('count(b.id) as count')
+            ->join('b.user', 'u')
+            ->where('u.id = :userID')
+            ->andWhere('b.status in (:borrowingStatus)')
+            ->setParameters(['userID' => $user->getId(), 'borrowingStatus' => Borrowing::STATUS_IN_PROGRESS_ARRAY])
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
     // /**
     //  * @return Borrowing[] Returns an array of Borrowing objects
     //  */
