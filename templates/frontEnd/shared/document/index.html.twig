@@ -14,7 +14,7 @@
             {% set activeCategories = [] %}
             {% endif %}
             {{ render(controller(
-                'App\\Controller\\CategoryController::categories_toolbar',
+                "App\\Controller\\CategoryController::#{websiteFlag}CategoriesToolbar",
                 { 'activeCategories': activeCategories }
             )) }}
             <!-- /.col-lg-3 -->

@@ -1,10 +1,13 @@
-.img-book
-{
-    height:250px;
+.img-book {
+    height: 250px;
     object-fit: contain;
     margin: 20px 0;
 }
 
 table {
     width: 100%;
+}
+
+.card-body > div {
+    margin: 15px 0px;
 }

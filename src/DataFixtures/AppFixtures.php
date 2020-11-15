@@ -8,6 +8,7 @@ use App\Entity\Book;
 use App\Entity\Borrowing;
 use App\Entity\Category;
 use App\Entity\Copy;
+use App\Entity\Dvd;
 use App\Entity\User;
 use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -40,6 +41,19 @@ class AppFixtures extends Fixture implements FixtureGroupInterface
         $this->loadCategories($manager);
         $categories = $manager->getRepository(Category::class)->findAll();
 
+        $dvd = new Dvd();
+        $dvd->setDescription($this->faker->paragraph);
+        $dvd->setPublishedDate($this->faker->dateTime('now'));
+        $dvd->setPublisher($this->faker->company);
+        $dvd->setAvailableSince($this->faker->dateTimeThisYear);
+        $dvd->setThumbnailUrl("https://picsum.photos/id/{$this->faker->numberBetween(0, 1084)}/150/250.jpg");
+        $dvd->setStars($this->faker->numberBetween(1, 5));
+        $dvd->setIsPinned(true);
+        $dvd->setAvailability(true);
+        $dvd->setHasBonus(true);
+        $dvd->setDuration(null);
+        $dvd->setTitle('toto');
+        $manager->persist($dvd);
         for ($i = 0; $i < 20; ++$i) {
             $book = new Book();
 

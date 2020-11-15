@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block styleheets %}
+{% block stylesheets %}
+    {{ parent() }}
     <link href="{{ asset("assets/css/movio/base.css") }}" rel="stylesheet" />
 {% endblock %}
 {% block navigation %}

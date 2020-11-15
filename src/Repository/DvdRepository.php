@@ -15,7 +15,8 @@ class DvdRepository extends DocumentRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Dvd::class);
+        parent::__construct($registry, 'Dvd::class');
+        $this->childClass = 'dvd';
     }
 
     // /**

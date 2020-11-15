@@ -9,14 +9,16 @@ use App\Repository\ArtistInvolvementRepository;
 use App\Repository\ArtistRepository;
 use App\Repository\BookRepository;
 use App\Repository\CategoryRepository;
-use App\Repository\DocumentRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("", name="biblio_artist_")
  */
-class BiblioArtistController extends ArtistController
+class BiblioArtistController extends AbstractController
 {
+    use ArtistController;
+
     /**
      * @Route("/biblio/artist/role/{roleName}", name="index")
      *
@@ -36,11 +38,11 @@ class BiblioArtistController extends ArtistController
      */
     public function show(
         Artist $artist,
-        DocumentRepository $documentRepository,
+        BookRepository $documentRepository,
         ArtistInvolvementRepository $artistInvolvementRepository,
         CategoryRepository $categoryRepository
     ) {
-        return $this->render('frontEnd/biblio/author/show.html.twig', [
+        return $this->render('frontEnd/biblio/artist/show.html.twig', [
             'artist' => $artist,
             'artistData' => $this->getArtistData($artist, $documentRepository, $artistInvolvementRepository, $categoryRepository),
         ]);
@@ -53,18 +55,19 @@ class BiblioArtistController extends ArtistController
     {
         $books = $bookRepository->findDocumentsByArtist($artist);
 
-        return $this->render('frontEnd/biblio/book/index.html.twig', [
-            'books' => $books,
+        return $this->render('frontEnd/shared/document/index.html.twig', [
+            'documents' => $books,
+            'websiteFlag' => 'biblio',
             'title' => "Books written by {$artist->getFirstName()} {$artist->getLastName()}",
         ]);
     }
 
     //SHOW SOME OTHER DOCUMENTS WHICH HAVE ARTIST IN COMMON WITH A GIVEN DOCUMENT
 
-    public function getBooksSamplesByArtistTemplate(ArtistRepository $artistRepository, BookRepository $bookRepository, Book $dvd)
+    public function getBooksSamplesByArtistTemplate(ArtistRepository $artistRepository, BookRepository $bookRepository, Book $document)
     {
         return $this->render('frontEnd/shared/document/_documents_items_partial.html.twig', [
-            'documents' => $this->getDocumentsSamplesByArtist($artistRepository, $bookRepository, $dvd),
+            'documents' => $this->getDocumentsSamplesByArtist($artistRepository, $bookRepository, $document),
         ]);
     }
 
@@ -78,7 +81,7 @@ class BiblioArtistController extends ArtistController
 
     public function getSimilarArtistsTemplate(Artist $artist, ArtistRepository $artistRepository, CategoryRepository $categoryRepository)
     {
-        return $this->render('frontEnd/shared/_artists_suggestion_partial.html.twig', [
+        return $this->render('frontEnd/shared/artist/_artists_suggestion_partial.html.twig', [
             'artists' => $this->getSimilarArtists($artist, $artistRepository, $categoryRepository),
         ]);
     }

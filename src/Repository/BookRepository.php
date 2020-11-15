@@ -16,6 +16,7 @@ class BookRepository extends DocumentRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Book::class);
+        $this->childClass = 'book';
     }
 
     // /**

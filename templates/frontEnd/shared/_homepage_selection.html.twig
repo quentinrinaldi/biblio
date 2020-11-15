@@ -31,9 +31,12 @@
                                 <div class="card h-100 text-center">
                                     <a href="#"><img class="card-img-top" src="{{ document.thumbnailUrl }}" alt=""></a>
                                     <div class="card-body">
-                                        <span class="card-title">
+                                        <div class="card-title">
                                             <a href="{{ document|generateDocumentUrl }}">{{ document.title }}</a>
-                                        </span>
+                                        </div>
+                                        <div class="author-title">
+                                        {{ document.artistInvolvements|map(inv => inv.artist.firstName~' '~inv.artist.lastName)|join(', ')}}
+                                        </div>
                                     </div>
                                     <div class="card-footer">
                                         <small class="text-muted"> {% for i in 0..document.stars-1 %}&#9733; {% endfor %}</small>

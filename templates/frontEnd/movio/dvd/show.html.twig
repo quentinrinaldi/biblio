@@ -1,10 +1,8 @@
-{% extends 'frontEnd/biblio/base.html.twig' %}
-
+{%  extends 'frontEnd/movio/base.html.twig' %}
 {% block stylesheets %}
-{{parent()}}
+    {{ parent() }}
     <link href="{{ asset("assets/css/book-show.css") }}" rel="stylesheet">
 {% endblock %}
-{% block title %}Book details{% endblock %}
 {% block body %}
 <!-- Page Content -->
 <div class="container">
@@ -12,37 +10,34 @@
     <div class="row">
 
         {{ render(controller(
-            'App\\Controller\\CategoryController:biblioCategoriesToolbar',
+            'App\\Controller\\CategoryController:movioCategoriesToolbar',
             { 'activeCategories': activeCategories }
         )) }}
         <!-- /.col-lg-3 -->
 
         <div class="col-lg-9">
-            <a href="{{ path('biblio_book_index') }}"><-- Back to the list</a>
+            <a href="{{ path('movio_dvd_index') }}"><-- Back to the list</a>
 
             <div class="card mt-4">
                 <img class="card-img-top img-fluid img-book" src="{{ document.thumbnailUrl }}" alt="">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-9">
+                        <div class="col-8">
                             <h3 class="card-title">{{ document.title }}</h3>
                         </div>
 
-                        <div class="col-3">
-                            <a href="{{path('biblio_book_borrow', {'id': document.id})}}"
+                        <div class="col-4">
+                            <a href="{{path('movio_dvd_borrow', {'id': document.id})}}"
                                class="btn btn-primary btn-lg {% if (remainingCopies == 0 or alreadyBorrowed) %}disabled{% endif %}">
                                 {% if alreadyBorrowed %}Borrowed {% else %}Borrow{% endif %}</a>
                         </div>
                     </div>
-                    <div>
-                    <h4>By: {{ document.artistInvolvements|map(inv=>"<a href="~path('biblio_artist_show', {'id': inv.artist.id})~">"~inv~"</a>")|join(', ')|raw }}
+
+                    <h4>By: {{ document.artistInvolvements|map(inv=>"<a href="~path('movio_artist_show', {'id': inv.artist.id})~">"~inv~"</a>")|join(', ')|raw }}
                   {#      {% for inv in book.artistInvolvements %}
                         {{ inv.artist.firstName }} {{ inv.artist.lastName }} ({{ inv.type }}), {% endfor %}#}
                     </h4>
-                    </div>
-                    <div>
-                    <p class="card-text">{{document.description}}</p>
-                    </div>
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque facere, soluta. Totam id dolores, sint aperiam sequi pariatur praesentium animi perspiciatis molestias iure, ducimus!</p>
                     <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
                     4.0 stars
                 </div>
@@ -56,34 +51,18 @@
                     <table class="table-striped">
                         <tr>
                             <td>
-                                Publisher:
+                                has bonus :
                             </td>
                             <td>
-                                {{ document.publisher }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Pages count:
-                            </td>
-                            <td>
-                                {{ document.pagesCount }}
+                                {{ document.hasBonus ? "Yes" : "No" }}
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                Published Date:
+                                Duration:
                             </td>
                             <td>
-                                {{ document.publishedDate|date("m/d/Y") }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                ISBN:
-                            </td>
-                            <td>
-                                {{ document.isbn }}
+                                {{ document.duration ? document.duration : 'Unknown' }}
                             </td>
                         </tr>
                         <tr>
@@ -148,7 +127,7 @@
                 <div class="card-body">
                     <div class="row">
                         {{ render(controller(
-                            'App\\Controller\\BiblioArtistController::getBooksSamplesByArtistTemplate',
+                            'App\\Controller\\MovioArtistController::getDvdsSamplesByArtistTemplate',
                             { 'document': document }
                         )) }}
                     </div>

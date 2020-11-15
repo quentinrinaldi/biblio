@@ -52,7 +52,7 @@ class AppExtension extends AbstractExtension
             return $this->router->generate('biblio_book_show', ['id' => $document->getId()]);
         }
         if ($document instanceof Dvd) {
-            return $this->router->generate('biblio_book_show', ['id' => $document->getId()]);
+            return $this->router->generate('movio_dvd_show', ['id' => $document->getId()]);
         }
     }
 

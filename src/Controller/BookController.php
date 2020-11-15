@@ -32,6 +32,7 @@ class BookController extends AbstractController
         return $this->render('frontEnd/shared/document/index.html.twig', [
             'documents' => $books,
             'title' => 'All books',
+            'websiteFlag' => 'biblio',
         ]);
     }
 
@@ -54,7 +55,7 @@ class BookController extends AbstractController
         $categories = $book->getCategories();
 
         return $this->render('frontEnd/biblio/book/show.html.twig', [
-            'book' => $book,
+            'document' => $book,
             'remainingCopies' => $remainingCopies,
             'alreadyBorrowed' => $alreadyBorrowed,
             'activeCategories' => $categories,

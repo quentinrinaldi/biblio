@@ -4,7 +4,7 @@
         {% for category in categories %}
         <a href="{{ path('category_book_show', {'id' : category.id}) }}" class="list-group-item {% if category in activeCategories %}active{% endif %}">{{ category.name }}</a>
        {% endfor %}
-        <a href="{{ path('biblio_book_index') }}" class="list-group-item">All books</a>
+        <a href="{{ everyItemsPath }}" class="list-group-item">{{everyItemsTitle}}</a>
 
     </div>
 </div>

@@ -9,7 +9,6 @@ use App\Entity\User;
 use App\Event\DocumentBorrowedEvent;
 use App\Event\DocumentReturnedEvent;
 use App\Policy\PenaltyPolicy;
-use App\Repository\CategoryRepository;
 use App\Repository\CopyRepository;
 use App\Repository\DvdRepository;
 use DateTime;
@@ -32,6 +31,7 @@ class DvdController extends AbstractController
         return $this->render('frontEnd/movio/dvd/index.html.twig', [
             'dvds' => $dvds,
             'title' => 'All dvds',
+            'websiteFlag' => 'movio',
         ]);
     }
 
@@ -39,7 +39,7 @@ class DvdController extends AbstractController
      * @Route("/{id}", name="show")
      * Page which show a dvd
      */
-    public function show(DvdRepository $dvdRepository, CategoryRepository $categoryRepository, Dvd $dvd)
+    public function show(DvdRepository $dvdRepository, Dvd $dvd)
     {
         $alreadyBorrowed = false;
         if ($user = $this->getUser()) {
@@ -54,7 +54,7 @@ class DvdController extends AbstractController
         $categories = $dvd->getCategories();
 
         return $this->render('frontEnd/movio/dvd/show.html.twig', [
-            'dvd' => $dvd,
+            'document' => $dvd,
             'remainingCopies' => $remainingCopies,
             'alreadyBorrowed' => $alreadyBorrowed,
             'activeCategories' => $categories,

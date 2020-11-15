@@ -9,15 +9,10 @@ use App\Repository\ArtistInvolvementRepository;
 use App\Repository\ArtistRepository;
 use App\Repository\CategoryRepository;
 use App\Repository\DocumentRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("", name="biblio_artist_")
- */
-class ArtistController extends AbstractController
+trait ArtistController
 {
-    public function getSortedArtistIndex(ArtistRepository $artistRepository, string $roleName)
+    private function getSortedArtistIndex(ArtistRepository $artistRepository, string $roleName)
     {
         $artists = $artistRepository->findArtistsByRole($roleName);
         $artistsIndex = [];
@@ -32,7 +27,7 @@ class ArtistController extends AbstractController
         return $artistsIndex;
     }
 
-    public function getArtistData(
+    private function getArtistData(
         Artist $artist,
         DocumentRepository $documentRepository,
         ArtistInvolvementRepository $artistInvolvementRepository,
@@ -52,9 +47,9 @@ class ArtistController extends AbstractController
     //SHOW SOME OTHER DOCUMENTS WHICH HAVE ARTIST IN COMMON WITH A GIVEN DOCUMENT
 
     /**
-     * @todo: refactor partial
+     * Find documents From the sames artists.
      */
-    public function getDocumentsSamplesByArtist(ArtistRepository $artistRepository, DocumentRepository $documentRepository, Document $document)
+    private function getDocumentsSamplesByArtist(ArtistRepository $artistRepository, DocumentRepository $documentRepository, Document $document)
     {
         $artists = $artistRepository->findArtistsIdByDocumentAndByRole($document, ArtistInvolvement::TYPE_AUTHOR);
 
@@ -62,12 +57,12 @@ class ArtistController extends AbstractController
     }
 
     //SHOW OTHER DOCUMENTS IN WHICH THE ARTIST IS INVOLVED
-    public function getPopularBooksSelectionByArtist(DocumentRepository $documentRepository, Artist $artist)
+    private function getPopularBooksSelectionByArtist(DocumentRepository $documentRepository, Artist $artist)
     {
         return $documentRepository->findMostPopularDocumentsByArtist($artist, 4);
     }
 
-    public function getSimilarArtists(Artist $artist, ArtistRepository $artistRepository, CategoryRepository $categoryRepository)
+    private function getSimilarArtists(Artist $artist, ArtistRepository $artistRepository, CategoryRepository $categoryRepository)
     {
         $categories = $categoryRepository->findDistinctCategoriesByArtist($artist);
 

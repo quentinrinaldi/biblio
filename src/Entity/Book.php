@@ -3,19 +3,15 @@
 namespace App\Entity;
 
 use App\Repository\BookRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=BookRepository::class)
- *
  */
 class Book extends Document
 {
-
     /**
-     * @ORM\Column(type="string", length=10)
+     * @ORM\Column(type="string", length=13, unique=true)
      */
     private $isbn;
 

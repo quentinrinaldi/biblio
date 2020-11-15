@@ -35,22 +35,35 @@ class CategoryRepository extends ServiceEntityRepository
             ;
     }
 
-    public function findAllCategoriesNamesByBook()
+    public function findAllCategoriesNamesOfBooks()
     {
         return $this->createQueryBuilder('c')
             ->orderBy('c.name', 'ASC')
+            ->join('c.documents', 'd')
+            ->where('d INSTANCE OF App\Entity\Book')
             ->getQuery()
             ->getResult()
         ;
     }
 
-    public function findAllIdByBook($book)
+    public function findAllCategoriesNamesOfDvds()
+    {
+        return $this->createQueryBuilder('c')
+            ->orderBy('c.name', 'ASC')
+            ->join('c.documents', 'd')
+            ->where('d INSTANCE OF App\Entity\Dvd')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findAllCategoriesIdByDocument($document)
     {
         return $this->createQueryBuilder('c')
             ->select('c.id')
             ->join('c.documents', 'd')
             ->where('d.id = :documentId')
-            ->setParameter('documentId', $book->getId())
+            ->setParameter('documentId', $document->getId())
             ->getQuery()
             ->getResult()
         ;

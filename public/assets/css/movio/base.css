@@ -1,7 +1,12 @@
 .bg-custom-nav {
-    background-color: #45cea8;
+    background-color: #3f87f3;
 }
 
 nav .btn-outline-light:hover {
-    color: #45cea8 !important;
+    color: #3f87f3 !important;
+}
+
+.list-group-item.active {
+    background-color: #3f87f3;
+    border-color: #3f87f3;
 }

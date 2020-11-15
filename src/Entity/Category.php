@@ -39,6 +39,11 @@ class Category
         $this->documents = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->name;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -51,11 +56,10 @@ class Category
 
     public function setName(string $name): self
     {
-        $this->name = $name;
+        $this->name = ucfirst(strtolower($name));
 
         return $this;
     }
-
 
     public function getDescription(): ?string
     {
@@ -67,11 +71,6 @@ class Category
         $this->description = $description;
 
         return $this;
-    }
-
-    public function __toString()
-    {
-        return $this->name;
     }
 
     /**

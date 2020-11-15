@@ -6,9 +6,7 @@ nav .btn-outline-light:hover {
     color: #45cea8 !important;
 }
 
-header.masthead {
-    background: url("../img/book2.jpg") no-repeat center center;
-    background-attachment: scroll;
-    position: relative;
-    background-size: cover;
+.list-group-item.active {
+    background-color: #45cea8;
+    border-color: #45cea8;
 }

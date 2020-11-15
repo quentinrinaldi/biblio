@@ -10,13 +10,16 @@ use App\Repository\ArtistRepository;
 use App\Repository\CategoryRepository;
 use App\Repository\DocumentRepository;
 use App\Repository\DvdRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("", name="movio_artist_")
  */
-class MovioArtistController extends ArtistController
+class MovioArtistController extends AbstractController
 {
+    use ArtistController;
+
     /**
      * @Route("/movio/artist/role/{roleName}", name="index")
      *
@@ -62,12 +65,12 @@ class MovioArtistController extends ArtistController
     //SHOW SOME OTHER DOCUMENTS WHICH HAVE ARTIST IN COMMON WITH A GIVEN DOCUMENT
 
     /**
-     * @todo: refactor partial
+     * Find documents From the sames artists.
      */
-    public function getDvdsSamplesByArtistTemplate(ArtistRepository $artistRepository, DvdRepository $dvdRepository, Dvd $dvd)
+    public function getDvdsSamplesByArtistTemplate(ArtistRepository $artistRepository, DvdRepository $dvdRepository, Dvd $document)
     {
         return $this->render('frontEnd/shared/document/_documents_items_partial.html.twig', [
-            'documents' => $this->getDocumentsSamplesByArtist($artistRepository, $dvdRepository, $dvd),
+            'documents' => $this->getDocumentsSamplesByArtist($artistRepository, $dvdRepository, $document),
         ]);
     }
 

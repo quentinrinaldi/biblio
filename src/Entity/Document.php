@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Entity\Artist;
 use App\Repository\DocumentRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -11,14 +10,13 @@ use Exception;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\DocumentRepository", repositoryClass=DocumentRepository::class)
+ * @ORM\Entity(repositoryClass=DocumentRepository::class)
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="document_type", type="string")
  * @ORM\DiscriminatorMap({"document" = "Document", "book" = "Book", "dvd" = "Dvd"})
  */
 class Document
 {
-
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -40,7 +38,7 @@ class Document
      * @ORM\Column(type="string", length=255)
      * @Assert\Url
      */
-    protected $thumbnailUrl = "https://via.placeholder.com/200x250?text=+";
+    protected $thumbnailUrl = 'https://via.placeholder.com/200x250?text=+';
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -136,7 +134,6 @@ class Document
         return $this;
     }
 
-
     public function getDescription(): ?string
     {
         return $this->description;
@@ -148,7 +145,6 @@ class Document
 
         return $this;
     }
-
 
     public function getStars(): ?int
     {
@@ -206,7 +202,7 @@ class Document
     }
 
     /**
-     * @return Collection|ArtistInvolvement[]
+     * @return ArtistInvolvement[]|Collection
      */
     public function getArtistInvolvements(): Collection
     {
@@ -248,8 +244,6 @@ class Document
         return $this;
     }
 
-
-
     public function getIsPinned(): ?bool
     {
         return $this->isPinned;
@@ -274,26 +268,29 @@ class Document
         return $this;
     }
 
-    public function getAvailableCopy() :Copy
+    public function getAvailableCopy(): Copy
     {
         foreach ($this->getCopies() as $copy) {
-            if ($copy->getStatus() === 'AVAILABLE')
+            if ('AVAILABLE' === $copy->getStatus()) {
                 return $copy;
+            }
         }
+
         throw new Exception('Available copy not found');
     }
 
     public function checkAvailability()
     {
         foreach ($this->getCopies() as $copy) {
-            if ($copy->getStatus() === 'AVAILABLE')
+            if ('AVAILABLE' === $copy->getStatus()) {
                 return;
+            }
         }
         $this->setAvailability(false);
     }
 
     /**
-     * @return Collection|Category[]
+     * @return Category[]|Collection
      */
     public function getCategories(): Collection
     {
