@@ -44,7 +44,7 @@ class DvdController extends AbstractController
         $alreadyBorrowed = false;
         if ($user = $this->getUser()) {
             //See if the document is already borrowed by the authentificated user
-            $userDocumentBorrowings = $dvdRepository->findIfDocumentIsBorrowedByUser($user, $dvd);
+            $userDocumentBorrowings = $dvdRepository->findIfDocumentIsCurrentlyBorrowedByUser($user, $dvd);
             $alreadyBorrowed = $userDocumentBorrowings;
             if (!empty($userDocumentBorrowings)) {
                 $alreadyBorrowed = true;

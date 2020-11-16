@@ -45,7 +45,7 @@ class BookController extends AbstractController
         $alreadyBorrowed = false;
         if ($user = $this->getUser()) {
             //See if the document is already borrowed by the authentificated user
-            $userDocumentBorrowings = $bookRepository->findIfDocumentIsBorrowedByUser($user, $book);
+            $userDocumentBorrowings = $bookRepository->findIfDocumentIsCurrentlyBorrowedByUser($user, $book);
             $alreadyBorrowed = $userDocumentBorrowings;
             if (!empty($userDocumentBorrowings)) {
                 $alreadyBorrowed = true;

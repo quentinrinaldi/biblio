@@ -1,0 +1,12 @@
+{{ form_start(form, {'action': path('review_new', {'id': documentId}), 'method': 'POST'}) }}
+    <h5>Did you read this book ? Leave a comment to help others readers</h5>
+    <label for="input-1" class="control-label">Your rate</label>
+    <input id="input-1" name="review_form[rating]" class="rating rating-loading" data-min="0" data-max="5" data-step="1" data-showcaption="false">
+    
+    {{ form_widget(form) }}
+        
+
+    <button type="submit" id="review-button" class="btn btn-success">Save</button>
+    
+{{ form_end(form) }}
+

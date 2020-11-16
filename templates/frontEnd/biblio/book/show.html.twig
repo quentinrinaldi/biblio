@@ -3,12 +3,14 @@
 {% block stylesheets %}
 {{parent()}}
     <link href="{{ asset("assets/css/book-show.css") }}" rel="stylesheet">
+    <link href="{{ asset("assets/css/shared/star-rating.css") }}" rel="stylesheet">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
 {% endblock %}
 {% block title %}Book details{% endblock %}
 {% block body %}
 <!-- Page Content -->
 <div class="container">
-
     <div class="row">
 
         {{ render(controller(
@@ -112,8 +114,10 @@
                     Product Reviews
                 </div>
                 <div class="card-body">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-                    <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+                    {{ render(controller(
+                    'App\\Controller\\ReviewController:index',
+                    { 'id': document.id }
+                        )) }}
                     <hr>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
                     <small class="text-muted">Posted by Anonymous on 3/1/17</small>
@@ -121,10 +125,14 @@
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
                     <small class="text-muted">Posted by Anonymous on 3/1/17</small>
                     <hr>
-                    <a href="#" class="btn btn-success">Leave a Review</a>
+                    {{ render(controller(
+                    'App\\Controller\\ReviewController:new',
+                    { 'id': document.id }
+                        )) }}
                 </div>
             </div>
             <!-- /.card -->
+            
 
             <div class="card card-outline-secondary my-4">
                 <div class="card-header">
@@ -162,4 +170,31 @@
 
 </div>
 <!-- /.container -->
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent()}}
+    <script src="{{asset("assets/js/star-rating.js")}}" type="text/javascript"></script>
+    <script>
+    // initialize with defaults
+$(document).ready(function () {
+    $('form').on('submit', function (event) {
+        event.preventDefault();
+        let form = event.target;
+        console.log(form);
+        let data = $('form').serialize();
+        $.ajax({
+            type: "POST",
+            url: form.getAttribute('action'),
+            data: data,
+            success: function() {
+                alert('success');
+            },
+        });
+    
+    });
+
+});
+
+</script>
 {% endblock %}
