@@ -3,8 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        <link href="{{ asset("assets/css/bootstrap.min.css") }}" rel="stylesheet">
-        <link href="{{ asset("assets/css/shared/base.css") }}" rel="stylesheet">
+        {{ encore_entry_link_tags('app') }}
         {% block stylesheets %}{% endblock %}
 
     </head>
@@ -25,9 +24,8 @@
     {% block body %}
     {% endblock %}
 
-    </body>
-    <script src={{ asset("assets/js/jquery.min.js") }}></script>
-    <script src={{ asset("assets/js/bootstrap.min.js") }}></script>
+    {{ encore_entry_script_tags('app') }}
     {% block javascripts %}
     {% endblock %}
+    </body>
 </html>

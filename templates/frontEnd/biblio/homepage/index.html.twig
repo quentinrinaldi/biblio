@@ -2,8 +2,6 @@
 
 {% block stylesheets %}
 {{ parent() }}
-<link href={{ asset("assets/css/biblio/homepage.css") }} rel="stylesheet">
-<link href={{ asset("assets/css/shared/homepage.css") }} rel="stylesheet">
 {% endblock %}
 {% block title %}Accueil{% endblock %}
 
@@ -57,6 +55,8 @@
 
 {% block javascripts %}
 <script>
+
+
 $('#carousel-OurSelection').carousel({interval: false});
 $('#carousel-MostPopular').carousel({interval: false});
 

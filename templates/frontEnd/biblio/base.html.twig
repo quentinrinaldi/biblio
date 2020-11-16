@@ -2,7 +2,7 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    <link href="{{ asset("assets/css/biblio/base.css") }}" rel="stylesheet" />
+    {{ encore_entry_link_tags('biblio') }}
 {% endblock %}
 {% block navigation %}
     <nav class="navbar navbar-expand-lg bg-custom-nav sticky-top">
