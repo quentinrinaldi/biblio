@@ -5,14 +5,14 @@
     {{ encore_entry_link_tags('biblio') }}
 {% endblock %}
 {% block navigation %}
-    <nav class="navbar navbar-expand-lg bg-custom-nav sticky-top">
-        <div class="container nav-container">
+    <nav class="biblio-navbar bg-custom-nav sticky-top">
+        <div class="nav-home">
             <a class="navbar-brand" href="#">Biblio</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        </div>
+        <!--    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ml-auto">
+            </button>-->
+                <ul class="navbar-nav">
                     <li class="nav-item {% if app.request.get('_route') == 'homepage' %} active {% endif %}">
                         <a class="nav-link" href="{{ path('biblio_homepage') }}">Home</a>
                     </li>
@@ -33,7 +33,7 @@
                     </li>
                 </ul>
 
-            </div>
+    
         </div>
         <div class="account-buttons">
         {% if app.user %}
