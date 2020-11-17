@@ -1,7 +1,7 @@
 
         {% for document in documents %}
             <div class="col-3">
-                <div class="card text-center h-100 {% if document.availability == false %} card-disabled{% endif %}">
+                <div class="card card-item text-center h-100 {% if document.availability == false %} card-disabled{% endif %}">
                     <a href="{{ document|generateDocumentUrl }}">
                         <img class="" src="{{ document.thumbnailUrl }}" alt="" />
                     </a>

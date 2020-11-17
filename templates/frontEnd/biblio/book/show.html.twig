@@ -23,13 +23,11 @@
             <a href="{{ path('biblio_book_index') }}"><-- Back to the list</a>
 
             <div class="card card-document">
-                <img class="card-img-top img-fluid img-book" src="{{ document.thumbnailUrl }}" alt="" />
-                <div class="card-body">
-                    <h3 class="card-title">{{ document.title }}</h3>
+                <img class="img-book" src="{{ document.thumbnailUrl }}" alt="" />
+                <div class="card-document-body">
+                    <h3 class="document-title">{{ document.title }}</h3>
                     
                     <h4>By: {{ document.artistInvolvements|map(inv=>"<a href="~path('biblio_artist_show', {'id': inv.artist.id})~">"~inv~"</a>")|join(', ')|raw }}
-                  {#      {% for inv in book.artistInvolvements %}
-                        {{ inv.artist.firstName }} {{ inv.artist.lastName }} ({{ inv.type }}), {% endfor %}#}
                     </h4>
                 
                     <div>
@@ -37,7 +35,7 @@
                     </div>
                     <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
                         4.0 stars
-                    <div>
+                    <div class="btn-borrow">
                         <a href="{{path('biblio_book_borrow', {'id': document.id})}}"
                                 class="btn btn-primary btn-lg {% if (remainingCopies == 0 or alreadyBorrowed) %}disabled{% endif %}">
                                     {% if alreadyBorrowed %}Borrowed {% else %}Borrow{% endif %}

@@ -21,11 +21,19 @@
         </div>
     {% endfor %}
 
+    <main>
     {% block body %}
     {% endblock %}
+    </main>
 
     {{ encore_entry_script_tags('app') }}
     {% block javascripts %}
     {% endblock %}
     </body>
+
+    <footer> 
+        <div class="text-center ">
+            <p> Biblio & Movio Copyright. By Quentin ®inaldi.></p>
+        </div>
+    </footer>
 </html>
