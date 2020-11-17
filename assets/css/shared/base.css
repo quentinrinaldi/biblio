@@ -28,10 +28,5 @@
     background-color: #b7b6b6;
     opacity: 0.8;
     color: white;
-}
-
-.card-img-top {
-    max-height: 200px;
-    width: auto;
-    margin-top: 10px;
+    height: 100%;
 }

@@ -79,6 +79,7 @@ nav .btn-outline-light:hover {
 .row {
     display: flex;
     flex-wrap: wrap;
+    flex-direction: row;
     margin-right: -15px;
     margin-left: -15px;
 }
@@ -155,6 +156,9 @@ a {
     display: flex;
     margin-bottom: 1.5rem;
     margin-top: 1.5rem;
+    .card-body {
+        padding: 1.25rem;
+    }
     img {
         margin-right: auto;
         margin-left: auto;
@@ -165,5 +169,45 @@ a {
         margin-bottom: 0;
         background-color: rgba(0, 0, 0, 0.03);
         border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    }
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+}
+
+.card-footer {
+    padding: 0.75rem 1.25rem;
+    background-color: rgba(0, 0, 0, 0.03);
+    border-top: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.card-body {
+    flex: 1 1 auto;
+}
+
+.h-100 {
+    height: 100% !important;
+}
+
+.card-img-overlay {
+    background-color: #b7b6b6;
+    opacity: 0.8;
+    color: white;
+    position: absolute;
+    width: 85%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center img {
+        opacity: 0.8;
+    }
+    .card-disabled-comment {
+        margin-right: auto;
+        margin-left: auto;
     }
 }

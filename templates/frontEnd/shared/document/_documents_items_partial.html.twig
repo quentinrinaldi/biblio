@@ -1,9 +1,9 @@
 
         {% for document in documents %}
-            <div class="col-lg-3 col-md-1 mb-4">
-                <div class="card h-100 text-center {% if document.availability == false %} card-disabled{% endif %}">
+            <div class="col-3">
+                <div class="card text-center h-100 {% if document.availability == false %} card-disabled{% endif %}">
                     <a href="{{ document|generateDocumentUrl }}">
-                        <img class="card-img-top" src="{{ document.thumbnailUrl }}" alt="" />
+                        <img class="" src="{{ document.thumbnailUrl }}" alt="" />
                     </a>
                     <div class="card-body text-center">
                         <a href="{{ path('biblio_book_show', {'id': document.id}) }}">{{ document.title }}</a>
@@ -12,8 +12,8 @@
                         <small class="text-muted"> {% for i in 0..document.stars-1 %}&#9733; {% endfor %}</small>
                     </div>
                     {% if document.availability == false %}
-                        <div class="card-img-overlay text-center d-flex flex-column">
-                            <h4 class="card-title justify-content-center">Unavailable</h4>
+                        <div class="card-img-overlay text-center">
+                            <h4 class="card-disabled-comment">Unavailable</h4>
                         </div>
                     {% endif %}
                 </div>
