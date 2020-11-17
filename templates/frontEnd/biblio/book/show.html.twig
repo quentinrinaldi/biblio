@@ -19,38 +19,34 @@
         )) }}
         <!-- /.col-lg-3 -->
 
-        <div class="col-lg-9">
+        <div class="col-9">
             <a href="{{ path('biblio_book_index') }}"><-- Back to the list</a>
 
-            <div class="card mt-4">
-                <img class="card-img-top img-fluid img-book" src="{{ document.thumbnailUrl }}" alt="">
+            <div class="card card-document">
+                <img class="card-img-top img-fluid img-book" src="{{ document.thumbnailUrl }}" alt="" />
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-9">
-                            <h3 class="card-title">{{ document.title }}</h3>
-                        </div>
-
-                        <div class="col-3">
-                            <a href="{{path('biblio_book_borrow', {'id': document.id})}}"
-                               class="btn btn-primary btn-lg {% if (remainingCopies == 0 or alreadyBorrowed) %}disabled{% endif %}">
-                                {% if alreadyBorrowed %}Borrowed {% else %}Borrow{% endif %}</a>
-                        </div>
-                    </div>
-                    <div>
+                    <h3 class="card-title">{{ document.title }}</h3>
+                    
                     <h4>By: {{ document.artistInvolvements|map(inv=>"<a href="~path('biblio_artist_show', {'id': inv.artist.id})~">"~inv~"</a>")|join(', ')|raw }}
                   {#      {% for inv in book.artistInvolvements %}
                         {{ inv.artist.firstName }} {{ inv.artist.lastName }} ({{ inv.type }}), {% endfor %}#}
                     </h4>
-                    </div>
+                
                     <div>
-                    <p class="card-text">{{document.description}}</p>
+                        <p class="card-text">{{document.description}}</p>
                     </div>
                     <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
-                    4.0 stars
+                        4.0 stars
+                    <div>
+                        <a href="{{path('biblio_book_borrow', {'id': document.id})}}"
+                                class="btn btn-primary btn-lg {% if (remainingCopies == 0 or alreadyBorrowed) %}disabled{% endif %}">
+                                    {% if alreadyBorrowed %}Borrowed {% else %}Borrow{% endif %}
+                        </a>
+                    </div>
                 </div>
             </div>
             <!-- /.card -->
-            <div class="card card-outline-secondary my-4">
+            <div class="card">
                 <div class="card-header">
                     Information
                 </div>
@@ -109,7 +105,7 @@
                 </div>
             </div>
 
-            <div class="card card-outline-secondary my-4">
+            <div class="card">
                 <div class="card-header">
                     Product Reviews
                 </div>
@@ -134,7 +130,7 @@
             <!-- /.card -->
             
 
-            <div class="card card-outline-secondary my-4">
+            <div class="card">
                 <div class="card-header">
                     Some Books which have some categories in common
                 </div>
@@ -149,7 +145,7 @@
             </div>
 
 
-            <div class="card card-outline-secondary my-4">
+            <div class="card">
                 <div class="card-header">
                     Written by the same author
                 </div>
